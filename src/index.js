@@ -1,11 +1,22 @@
 class Character {
-  constructor() {
+  constructor(character) {
+    this.name = character.name
+    this.hp = character.hp
+    this.mp = character.mp
+    this.offensePower = character.offensePower
+    this.defencePower = character.defencePower
   }
 
   showStatus() {
     /* 
       キャラクターの名前、HP、MPを表示する。
     */
+    const characterStatus = document.getElementById('main');
+    return characterStatus.innerHTML =`
+      <p><b>名前: </b>${character.name}</p>
+      <p><b>HP: </b>${character.hp}</p>
+      <p><b>MP: </b>${character.mp}</p>
+    `
   }
 
   attack(defender) {
@@ -14,6 +25,11 @@ class Character {
       死んでいない場合は相手に与えたダメージを表示。
       相手が死んだ場合は相手に与えたダメージと死んだことを表示する。 
     */
+   if(character.hp === 0) {
+     return characterStatus.innerHTML = `<p>キャラクターは死んでいます</p>`
+   } else {
+     return 
+   }
   }
 
   calcAttackDamage(defender) {

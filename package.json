@@ -7,11 +7,10 @@
     "build": "webpack",
     "dev-server": "webpack-dev-server"
   },
-  "dependencies": {
-    
-  },
+  "dependencies": {},
   "devDependencies": {
-    "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1"
   }
 }
