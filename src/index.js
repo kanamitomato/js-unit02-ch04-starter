@@ -1,10 +1,12 @@
 class Character {
-  constructor(character) {
-    this.name = character.name
-    this.hp = character.hp
-    this.mp = character.mp
-    this.offensePower = character.offensePower
-    this.defencePower = character.defencePower
+  constructor(props) {
+    this.name = props.name
+    this.hp = props.hp
+    this.initialHP = props.initialHP
+    this.mp = props.mp
+    this.initialMP = props.initialMP
+    this.offensePower = props.offensePower
+    this.defencePower = props.defencePower
   }
 
   showStatus() {
@@ -13,9 +15,9 @@ class Character {
     */
     const characterStatus = document.getElementById('main');
     return characterStatus.innerHTML =`
-      <p><b>名前: </b>${character.name}</p>
-      <p><b>HP: </b>${character.hp}</p>
-      <p><b>MP: </b>${character.mp}</p>
+      <p><b>名前: </b>${this.name}</p>
+      <p><b>HP: </b>${this.hp}</p>
+      <p><b>MP: </b>${this.mp}</p>
     `
   }
 
@@ -24,12 +26,17 @@ class Character {
       キャラクターが死んでいる場合は攻撃出来ないので、それを表示する。
       死んでいない場合は相手に与えたダメージを表示。
       相手が死んだ場合は相手に与えたダメージと死んだことを表示する。 
+      キャラクターが死亡している場合、ターゲットが死亡している場合は攻撃出来ません。
+      また、相手に与えたダメージと相手が死んだ場合はそのことを表示します。
     */
-   if(character.hp === 0) {
-     return characterStatus.innerHTML = `<p>キャラクターは死んでいます</p>`
-   } else {
-     return 
-   }
+    const attackStatus = document.getElementById('main');
+    if(this.hp <= 0) {
+      return attackStatus.innerHTML = `<p>${this.name}は死んでいます。攻撃できません</p>`
+    } if(this.hp >= 0) {
+        return attackStatus.innerHTML = `<p>${this.offensePower}のダメージを与えた</p>`
+    } else {
+      return attackStatus.innerHTML = `<p>${this.offensePower}のダメージで相手は死にました</p>`
+    }
   }
 
   calcAttackDamage(defender) {
