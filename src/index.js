@@ -44,6 +44,10 @@ class Character {
       ダメージは単純に攻撃力から防御力を引いて計算する。
       ダメージが0未満の場合は、最低のダメージ1を与える。
     */
+    const damage = this.hp - this.defencePower;
+    if (damage >= 0) {
+      return this.hp + 1;
+    }
   }
 }
 
