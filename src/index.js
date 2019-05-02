@@ -32,11 +32,9 @@ class Character {
     const attackStatus = document.getElementById('main');
     if(this.hp <= 0) {
       return attackStatus.innerHTML = `<p>${this.name}は死んでいます。攻撃できません</p>`
-    } if(!defender) {
-        return attackStatus.innerHTML = `<p>敵に${calcAttackDamage}のダメージを与えた</p>`
-    } else {
-      return attackStatus.innerHTML = `<p>${this.offensePower}のダメージで相手は死にました</p>`
-    }
+    } if(defender <= 0) {
+        return attackStatus.innerHTML = `<p>${defender}は死んでいます。攻撃できません</p>`
+    } 
   }
 
   calcAttackDamage(defender) {
