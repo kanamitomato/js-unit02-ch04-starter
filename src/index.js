@@ -32,8 +32,9 @@ class Character {
     const attackStatus = document.getElementById('main');
     if(this.hp <= 0) {
       return attackStatus.innerHTML = `<p>${this.name}は死んでいます。攻撃できません</p>`
-    } if(defender <= 0) {
-        return attackStatus.innerHTML = `<p>${defender}は死んでいます。攻撃できません</p>`
+    } 
+    if(defender.hp <= 0) {
+      return attackStatus.innerHTML = `<p>${defender.name}は死んでいます。攻撃できません</p>`
     } 
   }
 
@@ -42,7 +43,7 @@ class Character {
       ダメージは単純に攻撃力から防御力を引いて計算する。
       ダメージが0未満の場合は、最低のダメージ1を与える。
     */
-    const damage = defender - this.defencePower;
+    const damage = defender.offensePower - this.defencePower;
     if (damage >= 0) {
       return this.hp += 1;
     }
