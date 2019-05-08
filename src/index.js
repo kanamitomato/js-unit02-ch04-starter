@@ -77,12 +77,12 @@ class Sorcerer extends Character {
     if(target.hp <= 0) {//相手が死んでいる場合
       return healStatus.innerHTML = `<p>${target.name}は死んでいます。回復できません。</p>`
     }
-    const calcHp = target.hp += 15;
-    const calcMp = target.mp - 3;
+    const calcHp = this.hp += 15;
+    const calcMp = this.mp - 3;
     if(this.mp <= 2) {//もしMPが足りないなら足りないと表示する、足りるならMPを3消費して対象のHPを15回復する
       return healStatus.innerHTML = `<p>MPは${this.mp}です。回復魔法が足りません</p>`
     } else {
-      return healStatus.innerHTML = `<p>回復魔法で${this.name}のHPは${calcHp}に回復した！残りのMPは${calkMp}になった</p>`
+      return healStatus.innerHTML = `<p>回復魔法で${this.name}のHPは${calcHp}に回復した！残りのMPは${calcMp}になった</p>`
     }
   }
 
