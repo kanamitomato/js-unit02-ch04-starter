@@ -36,8 +36,12 @@ class Character {
     if(defender.hp <= 0) {
       return attackStatus.innerHTML = `<p>${defender.name}は死んでいます。攻撃できません</p>`
     }
-    const damage = calcAttackDamage();
-    return attackStatus.innerHTML = `<p>${this.name}は${defender.name}に${damage}のダメージを与えた！${defender.name}は死亡した。</p>`
+    const damage = this.calcAttackDamage(defender);
+    if(defender.hp <= 0) {
+      return attackStatus.innerHTML = `<p>${this.name}は${defender.name}に${damage}のダメージを与えた！${defender.name}は死亡した。</p>`
+    } else {
+      return attackStatus.innerHTML = `<p>${this.name}は${defender.name}に${damage}のダメージを与えた！</p>`
+    }
   }
 
   calcAttackDamage(defender) {
@@ -45,16 +49,17 @@ class Character {
       ダメージは単純に攻撃力から防御力を引いて計算する。
       ダメージが0未満の場合は、最低のダメージ1を与える。
     */
-    // const damage = defender.offensePower - this.defencePower;
-    // if (damage >= 0) {
-    //   return this.hp += 1;
-    // }
+    let damage = this.offensePower - defender.defencePower;
+    if (damage <= 0) {
+      damage = 1;
+    }
+    return damage
   }
 }
 
 class Sorcerer extends Character {
-  constructor() {
-    
+  constructor(props) {
+    super(props);
   }
 
   healSpell(target) {
@@ -65,6 +70,20 @@ class Sorcerer extends Character {
       相手が死んでいる場合は回復が出来ないためその旨を表示する。
       MPが足りない場合はその旨を表示する。
     */
+    const healStatus = document.getElementById('main');
+    if(this.sorcerer.hp <= 0) {//魔法使いが死んでいる場合
+      return healStatus.innerHTML = `<p>魔法使いが死んでいる！回復魔法が使えません。</p>`
+    }
+    if(target.hp <= 0) {//相手が死んでいる場合
+      return healStatus.innerHTML = `<p>${target.name}は死んでいます。回復できません。</p>`
+    }
+    const calcHp = target.hp += 15;
+    const calcMp = target.mp - 3;
+    if(this.mp <= 2) {//もしMPが足りないなら足りないと表示する、足りるならMPを3消費して対象のHPを15回復する
+      return healStatus.innerHTML = `<p>MPは${this.mp}です。回復魔法が足りません</p>`
+    } else {
+      return healStatus.innerHTML = `<p>回復魔法で${this.name}のHPは${calcHp}に回復した！残りのMPは${calkMp}になった</p>`
+    }
   }
 
   fireSpell(target) {
