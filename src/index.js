@@ -71,17 +71,20 @@ class Sorcerer extends Character {
       MPが足りない場合はその旨を表示する。
     */
     const healStatus = document.getElementById('main');
-    if(this.sorcerer.hp <= 0) {//魔法使いが死んでいる場合
+    if(this.hp <= 0) {//魔法使いが死んでいる場合
       return healStatus.innerHTML = `<p>魔法使いが死んでいる！回復魔法が使えません。</p>`
     }
     if(target.hp <= 0) {//相手が死んでいる場合
       return healStatus.innerHTML = `<p>${target.name}は死んでいます。回復できません。</p>`
     }
 
-    if(this.mp <= 2) {//もしMPが足りないなら足りないと表示する、足りるならMPを3消費して対象のHPを15回復する
-      return healStatus.innerHTML = `<p>MPは${this.mp}です。回復魔法が足りません</p>`
+    if(this.mp >= 3) {// 回復魔法で消費するMPは3、もしくはそれ以上
+      // HPとMPの計算公式（ここでは具体的に計算できないので、公式だけ書く）
+      target.hp = target.hp + 15;
+      this.mp = this.mp - 3; 
+      return healStatus.innerHTML = `<p>${this.name}は回復魔法を唱えた！${target.name}のHPが回復した！</p>`
     } else {
-      return healStatus.innerHTML = `<p>回復魔法で${target.name}のHPは${this.hp + 15}に回復した！残りのMPは${this.mp - 3}になった</p>`
+      return healStatus.innerHTML = `<p>MPが不足している！</p>`
     }
   }
 
@@ -93,6 +96,20 @@ class Sorcerer extends Character {
       相手が死んでいる場合は攻撃が出来ないためその旨を表示する。
       MPが足りない場合はその旨を表示する。
     */
+   const fireStatus = document.getElementById('main');
+   if(this.hp <= 0) {
+     return fireStatus.innerHTML = `<p>魔法使いが死んでいる！攻撃魔法は使えません</p>` 
+   }
+   if(target.hp <= 0) {
+     return fireStatus.innerHTML = `<p>${target.name}はすでに死んでいる！</p>`
+   }
+   if(this.mp >= 2) {
+     target.hp = target.hp - 10;
+     this.mp = this.mp - 2;
+     return fireStatus.innerHTML = `<p>${this.name}は攻撃魔法を使った！${target.name}のHPが減った！</p>`
+   } else {
+     return fireStatus.innerHTML = `<p>MPが不足している！</p>`
+   }
   }
 }
 
